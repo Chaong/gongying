@@ -1,0 +1,24 @@
+{% extends "learning_logs/base.html" %}
+{% load humanize %}
+
+{% block page_header %}
+    <h2>主题</h2>
+    {% if user.is_authenticated %}
+        <div class="text-right">
+            <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">添加主题</a>
+        </div>
+    {% endif %}
+{% endblock page_header %}
+
+{% block content %}
+    {% for topic in topics %}
+        <div class="card mb-3">
+            <div class="card-body">
+               <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link">{{ topic }}</a>
+                <small class="float-right text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime }}</small>
+            </div>
+        </div>
+    {% empty %}
+        <p>没有发现主题哦 ~</p>
+    {% endfor %}
+{% endblock content %}

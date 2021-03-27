@@ -1,0 +1,31 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    {% if type == "new" %}
+        <h2>添加条目</h2>
+    {% else %}
+        <h2>编辑条目</h2>
+    {% endif %}
+    <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></div>
+{% endblock page_header %}
+
+{% block content %}
+    {% if type == "new" %}
+        <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post" class="form">
+    {% else %}
+        <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post" class="form">
+    {% endif %}
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            {% if type == "new" %}
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
+                <button name="submit" class="btn btn-primary">添加条目</button>
+            {% else %}
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
+                <button name="submit" class="btn btn-primary">保存编辑</button>
+            {% endif %}
+        {% endbuttons %}
+    </form>
+{% endblock content %}

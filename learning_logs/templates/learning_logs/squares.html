@@ -1,0 +1,37 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+{% load humanize %}
+
+{% block page_header %}
+    <h2>广场</h2>
+    {% if user.is_authenticated %}
+        <div class="text-right">
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">制作蒲公英</a>
+        </div>
+    {% endif %}
+    <div class="collapse mt-3" id="collapseExample">
+        <form action="{% url 'learning_logs:new_dandelion' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">取消</a>
+                <button name="submit" class="btn btn-primary">分享蒲公英</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+    {% for dandelion in dandelions %}
+        <div class="card mb-3">
+            <div class="card-body">
+                {{ dandelion.content | linebreaksbr }}
+                <p class="card-text">
+                    <small class="text-muted">{{ dandelion.owner }} · {{ dandelion.date_added | naturaltime }}</small>
+                </p>
+            </div>
+        </div>
+    {% empty %}
+        <p>没有发现蒲公英哦 ~</p>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "learning_logs/base.html" %}
+{% load humanize %}
+
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-4">记录学习，分享成长</h1>
+        <hr class="my-4">
+        <p class="lead">哈喽，欢迎来到蒲公英。在这里可以轻松创建自己的学习记录，还可以在广场中与人分享，让更多的人知道并与您一起成长。以下是我们为您推荐的使用步骤：</p>
+        <ol class="lead">
+            <li>创建主题</li>
+            <li>在主题下创建条目</li>
+            <li>浏览蒲公英广场</li>
+        </ol>
+        {% if user.is_authenticated %}
+            <a class="btn btn-lg btn-primary" href="{% url 'learning_logs:topics' %}" role="button">进入主题 &raquo;</a>
+        {% else %}
+            <a class="btn btn-lg btn-primary" href="{% url 'users:login' %}" role="button">立刻登录 &raquo;</a>
+        {% endif %}
+    </div>
+    <h2>公开主题</h2>
+{% endblock page_header %}
+
+{% block content %}
+    {% for topic in topics %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link">{{ topic }}</a>
+                <small class="float-right text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime }}</small>
+            </div>
+        </div>
+    {% empty %}
+        <p>没有发现主题哦 ~</p>
+    {% endfor %}
+{% endblock content %}
