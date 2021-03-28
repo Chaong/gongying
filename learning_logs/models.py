@@ -16,16 +16,13 @@ class Topic(models.Model):
         return self.title
 
 
-class Entry(models.Model):
+class Card(models.Model):
     """ 学到的有关某个主题的具体知识 """
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     content = models.TextField()
     delete = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name_plural = "entries"
 
     def __str__(self):
         """ 返回模型的字符串表示 """

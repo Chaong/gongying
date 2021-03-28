@@ -18,9 +18,9 @@ urlpatterns = [
     # 编辑主题
     path("edit_topic/<int:topic_id>/", views.edit_topic, name="edit_topic"),
     # 添加条目
-    path("new_entry/<int:topic_id>/", views.new_entry, name="new_entry"),
+    path("new_card/<int:topic_id>/", views.new_card, name="new_card"),
     # 编辑条目
-    path("edit_entry/<int:entry_id>/", views.edit_entry, name="edit_entry"),
+    path("edit_card/<int:card_id>/", views.edit_card, name="edit_card"),
     # 广场主页
     path("squares/", views.squares, name="squares"),
     # 添加蒲公英

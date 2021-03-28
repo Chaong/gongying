@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.db.models import Q
-from .models import Topic, Entry, Dandelion
-from .forms import TopicForm, EntryForm, DandelionForm
+from .models import Topic, Card, Dandelion
+from .forms import TopicForm, CardForm, DandelionForm
 
 
 def check_topic_owner(topic, request):
@@ -36,8 +36,8 @@ def topic(request, topic_id):
 
     check_topic_owner(topic, request)
 
-    entries = topic.entry_set.order_by("-date_added")
-    context = {"topic": topic, "entries": entries}
+    cards = topic.card_set.order_by("-date_added")
+    context = {"topic": topic, "cards": cards}
     return render(request, "learning_logs/topic.html", context)
 
 
@@ -86,8 +86,8 @@ def edit_topic(request, topic_id):
 
 
 @login_required
-def new_entry(request, topic_id):
-    """ 添加新条目 """
+def new_card(request, topic_id):
+    """ 添加新卡片 """
     topic = get_object_or_404(Topic, id=topic_id)
 
     # 判断该主题作者是否为当前用户
@@ -97,26 +97,26 @@ def new_entry(request, topic_id):
 
     if request.method != "POST":
         # 未提交数据，创建一个空表单
-        form = EntryForm()
+        form = CardForm()
     else:
         # POST 提交的数据：对数据进行处理
-        form = EntryForm(data=request.POST)
+        form = CardForm(data=request.POST)
         if form.is_valid():
-            new_entry = form.save(commit=False)
-            new_entry.topic = topic
-            new_entry.save()
+            card = form.save(commit=False)
+            card.topic = topic
+            card.save()
             return redirect("learning_logs:topic", topic_id=topic_id)
 
     # 显示空表单或指出表单数据无效
     context = {"topic": topic, "form": form, "type": "new"}
-    return render(request, "learning_logs/entry.html", context)
+    return render(request, "learning_logs/card.html", context)
 
 
 @login_required
-def edit_entry(request, entry_id):
+def edit_card(request, card_id):
     """ 编辑条目 """
-    entry = get_object_or_404(Entry, id=entry_id)
-    topic = entry.topic
+    card = get_object_or_404(Card, id=card_id)
+    topic = card.topic
 
     # 判断该主题作者是否为当前用户
     if topic.owner != request.user:
@@ -125,16 +125,16 @@ def edit_entry(request, entry_id):
 
     if request.method != "POST":
         # 初次请求：使用当前条目填充表单
-        form = EntryForm(instance=entry)
+        form = CardForm(instance=card)
     else:
         # POST 提交的数据：对数据进行处理
-        form = EntryForm(instance=entry, data=request.POST)
+        form = CardForm(instance=card, data=request.POST)
         if form.is_valid():
             form.save()
             return redirect("learning_logs:topic", topic_id=topic.id)
 
-    context = {"entry": entry, "topic": topic, "form": form}
-    return render(request, "learning_logs/entry.html", context)
+    context = {"card": card, "topic": topic, "form": form}
+    return render(request, "learning_logs/card.html", context)
 
 
 def squares(request):
@@ -148,10 +148,7 @@ def squares(request):
 @login_required
 def new_dandelion(request):
     """ 添加蒲公英 """
-    if request.method != "POST":
-        # 未提交数据：创建一个新表单
-        form = DandelionForm()
-    else:
+    if request.method == "POST":
         # POST 提交的数据：对数据进行处理
         form = DandelionForm(data=request.POST)
         if form.is_valid():
@@ -159,7 +156,3 @@ def new_dandelion(request):
             new_dandelions.owner = request.user
             new_dandelions.save()
             return redirect("learning_logs:squares")
-
-    # 显示空表单或指出表单数据无效
-    context = {"form": form}
-    return render(request, "learning_logs/squares.html", context)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Topic, Entry, Dandelion
+from .models import Topic, Card, Dandelion
 
 
 class TopicForm(forms.ModelForm):
@@ -13,9 +13,9 @@ class TopicForm(forms.ModelForm):
         }
 
 
-class EntryForm(forms.ModelForm):
+class CardForm(forms.ModelForm):
     class Meta:
-        model = Entry
+        model = Card
         fields = ["title", "content"]
         labels = {"title": "", "content": ""}
         widgets = {

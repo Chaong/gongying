@@ -24,7 +24,9 @@
     {% for topic in topics %}
         <div class="card mb-3">
             <div class="card-body">
-                <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link">{{ topic }}</a>
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link text-body text-decoration-none">
+                    {{ topic }}<small class="text-muted ml-3">{{ topic.description }}</small>
+                </a>
                 <small class="float-right text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime }}</small>
             </div>
         </div>
