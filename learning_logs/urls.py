@@ -17,10 +17,12 @@ urlpatterns = [
     path("new_topic/", views.new_topic, name="new_topic"),
     # 编辑主题
     path("edit_topic/<int:topic_id>/", views.edit_topic, name="edit_topic"),
-    # 添加条目
-    path("new_card/<int:topic_id>/", views.new_card, name="new_card"),
-    # 编辑条目
-    path("edit_card/<int:card_id>/", views.edit_card, name="edit_card"),
+    # 文章详情
+    path("article/<int:article_id>/", views.article, name="article"),
+    # 添加文章
+    path("new_article/<int:topic_id>/", views.new_article, name="new_article"),
+    # 编辑文章
+    path("edit_article/<int:article_id>/", views.edit_article, name="edit_article"),
     # 广场主页
     path("squares/", views.squares, name="squares"),
     # 添加蒲公英

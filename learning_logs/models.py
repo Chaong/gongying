@@ -16,8 +16,8 @@ class Topic(models.Model):
         return self.title
 
 
-class Card(models.Model):
-    """ 学到的有关某个主题的具体知识 """
+class Article(models.Model):
+    """ 学到的有关某个主题的具体文章 """
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     content = models.TextField()

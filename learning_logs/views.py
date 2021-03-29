@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.db.models import Q
-from .models import Topic, Card, Dandelion
-from .forms import TopicForm, CardForm, DandelionForm
+from .models import Topic, Article, Dandelion
+from .forms import TopicForm, ArticleForm, DandelionForm
 
 
 def check_topic_owner(topic, request):
@@ -12,7 +12,6 @@ def check_topic_owner(topic, request):
         raise Http404
 
 
-# Create your views here.
 def index(request):
     """ 学习笔记的主页 """
     topics = Topic.objects.filter(public=True).order_by("-date_added")
@@ -36,9 +35,20 @@ def topic(request, topic_id):
 
     check_topic_owner(topic, request)
 
-    cards = topic.card_set.order_by("-date_added")
-    context = {"topic": topic, "cards": cards}
+    articles = topic.article_set.order_by("-date_added")
+    context = {"topic": topic, "articles": articles}
     return render(request, "learning_logs/topic.html", context)
+
+
+def article(request, article_id):
+    """ 显示文章详情 """
+    article = get_object_or_404(Article, id=article_id)
+    topic = article.topic
+
+    check_topic_owner(topic, request)
+
+    context = {"article": article, "topic": topic}
+    return render(request, "learning_logs/article.html", context)
 
 
 @login_required
@@ -58,7 +68,7 @@ def new_topic(request):
 
     # 显示空表单或指出表单数据无效
     context = {"form": form, "type": "new"}
-    return render(request, "learning_logs/topic_new_edit.html", context)
+    return render(request, "learning_logs/topic_ne.html", context)
 
 
 @login_required
@@ -82,12 +92,12 @@ def edit_topic(request, topic_id):
             return redirect("learning_logs:topic", topic_id=topic.id)
 
     context = {"topic": topic, "form": form}
-    return render(request, "learning_logs/topic_new_edit.html", context)
+    return render(request, "learning_logs/topic_ne.html", context)
 
 
 @login_required
-def new_card(request, topic_id):
-    """ 添加新卡片 """
+def new_article(request, topic_id):
+    """ 添加文章 """
     topic = get_object_or_404(Topic, id=topic_id)
 
     # 判断该主题作者是否为当前用户
@@ -97,26 +107,26 @@ def new_card(request, topic_id):
 
     if request.method != "POST":
         # 未提交数据，创建一个空表单
-        form = CardForm()
+        form = ArticleForm()
     else:
         # POST 提交的数据：对数据进行处理
-        form = CardForm(data=request.POST)
+        form = ArticleForm(data=request.POST)
         if form.is_valid():
-            card = form.save(commit=False)
-            card.topic = topic
-            card.save()
-            return redirect("learning_logs:topic", topic_id=topic_id)
+            article = form.save(commit=False)
+            article.topic = topic
+            article.save()
+            return redirect("learning_logs:article", article_id=article.id)
 
     # 显示空表单或指出表单数据无效
     context = {"topic": topic, "form": form, "type": "new"}
-    return render(request, "learning_logs/card.html", context)
+    return render(request, "learning_logs/article_ne.html", context)
 
 
 @login_required
-def edit_card(request, card_id):
-    """ 编辑条目 """
-    card = get_object_or_404(Card, id=card_id)
-    topic = card.topic
+def edit_article(request, article_id):
+    """ 编辑文章 """
+    article = get_object_or_404(Article, id=article_id)
+    topic = article.topic
 
     # 判断该主题作者是否为当前用户
     if topic.owner != request.user:
@@ -125,16 +135,16 @@ def edit_card(request, card_id):
 
     if request.method != "POST":
         # 初次请求：使用当前条目填充表单
-        form = CardForm(instance=card)
+        form = ArticleForm(instance=article)
     else:
         # POST 提交的数据：对数据进行处理
-        form = CardForm(instance=card, data=request.POST)
+        form = ArticleForm(instance=article, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("learning_logs:topic", topic_id=topic.id)
+            return redirect("learning_logs:article", article_id=article_id)
 
-    context = {"card": card, "topic": topic, "form": form}
-    return render(request, "learning_logs/card.html", context)
+    context = {"article": article, "topic": topic, "form": form}
+    return render(request, "learning_logs/article_ne.html", context)
 
 
 def squares(request):

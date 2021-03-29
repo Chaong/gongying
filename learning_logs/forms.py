@@ -1,27 +1,21 @@
 from django import forms
-from .models import Topic, Card, Dandelion
+from .models import Topic, Article, Dandelion
 
 
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
         fields = ["title", "description", "public"]
-        labels = {"title": "", "description": "", "public": "公开主题"}
-        widgets = {
-            "title": forms.TextInput(attrs={"placeholder": "名称"}),
-            "description": forms.Textarea(attrs={"placeholder": "描述"})
-        }
+        labels = {"title": "主题的名称", "description": "主题的描述", "public": "公开主题"}
+        widgets = {"description": forms.Textarea(attrs={"rows": 3})}
 
 
-class CardForm(forms.ModelForm):
+class ArticleForm(forms.ModelForm):
     class Meta:
-        model = Card
+        model = Article
         fields = ["title", "content"]
-        labels = {"title": "", "content": ""}
-        widgets = {
-            "title": forms.TextInput(attrs={"placeholder": "标题"}),
-            "content": forms.Textarea(attrs={"placeholder": "内容"})
-        }
+        labels = {"title": "文章的名称", "content": "文章的内容"}
+        widgets = {"content": forms.Textarea()}
 
 
 class DandelionForm(forms.ModelForm):

@@ -3,27 +3,27 @@
 
 {% block page_header %}
     {% if type == "new" %}
-        <h2>添加卡片</h2>
+        <h2>添加文章</h2>
     {% else %}
-        <h2>编辑卡片</h2>
+        <h2>编辑文章</h2>
     {% endif %}
     <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></div>
 {% endblock page_header %}
 
 {% block content %}
     {% if type == "new" %}
-        <form action="{% url 'learning_logs:new_card' topic.id %}" method="post" class="form">
+        <form action="{% url 'learning_logs:new_article' topic.id %}" method="post" class="form">
     {% else %}
-        <form action="{% url 'learning_logs:edit_card' card.id %}" method="post" class="form">
+        <form action="{% url 'learning_logs:edit_article' article.id %}" method="post" class="form">
     {% endif %}
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
             {% if type == "new" %}
                 <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
-                <button name="submit" class="btn btn-primary">添加卡片</button>
+                <button name="submit" class="btn btn-primary">发布文章</button>
             {% else %}
-                <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
+                <a href="{% url 'learning_logs:article' article.id %}" class="btn btn-outline-primary">取消</a>
                 <button name="submit" class="btn btn-primary">保存编辑</button>
             {% endif %}
         {% endbuttons %}
