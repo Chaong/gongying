@@ -10,8 +10,11 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button name="submit" class="btn btn-primary">注册</button>
+            <button name="submit" class="btn btn-primary px-5">注册</button>
         {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
     </form>
+    <small class="text-muted">
+        <a href="{% url 'users:login' %}" role="button">已有账号？点击登录 &raquo;</a>
+    </small>
 {% endblock content %}

@@ -3,7 +3,6 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
 
-# Create your views here.
 def register(request):
     """ 注册新用户 """
     if request.method != "POST":

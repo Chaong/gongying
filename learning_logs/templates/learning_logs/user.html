@@ -1,0 +1,35 @@
+{% extends "learning_logs/base.html" %}
+{% load humanize %}
+
+{% block page_header %}
+    {% if user.is_authenticated and request.user == user %}
+    <h2>我的主页</h2>
+    {% else %}
+    <h2>用户主页</h2>
+    {% endif %}
+{% endblock page_header %}
+
+{% block content %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">基本信息</h5>
+            <hr />
+            <div class="mb-3">
+                <span>用户昵称</span>
+                <span class="mx-4">{{ user.username }}</span>
+            </div>
+            <div class="mb-3">
+                <span>电子邮箱</span>
+                <span class="mx-4">{{ user.email }}</span>
+            </div>
+            <div class="mb-3">
+                <span>加入日期</span>
+                <span class="mx-4">{{ user.date_joined | date:"Y-m-d" }}</span>
+            </div>
+            <div>
+                <span>最后登录</span>
+                <span class="mx-4">{{ user.last_login | naturaltime }}</span>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

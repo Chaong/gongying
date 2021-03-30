@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.db.models import Q
+from django.contrib.auth.models import User
 from .models import Topic, Article, Dandelion
 from .forms import TopicForm, ArticleForm, DandelionForm
 
@@ -166,3 +167,10 @@ def new_dandelion(request):
             new_dandelions.owner = request.user
             new_dandelions.save()
             return redirect("learning_logs:squares")
+
+
+def user(request, user_id):
+    """ 用户主页 """
+    user = get_object_or_404(User, id=user_id)
+    context = {"user": user}
+    return render(request, "learning_logs/user.html", context)
