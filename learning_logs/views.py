@@ -171,6 +171,6 @@ def new_dandelion(request):
 
 def user(request, user_id):
     """ 用户主页 """
-    user = get_object_or_404(User, id=user_id)
-    context = {"user": user}
+    users = get_object_or_404(User, id=user_id)
+    context = {"users": users}
     return render(request, "learning_logs/user.html", context)

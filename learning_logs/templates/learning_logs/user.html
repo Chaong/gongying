@@ -2,7 +2,7 @@
 {% load humanize %}
 
 {% block page_header %}
-    {% if user.is_authenticated and request.user == user %}
+    {% if user.is_authenticated and users == user %}
     <h2>我的主页</h2>
     {% else %}
     <h2>用户主页</h2>
@@ -16,19 +16,19 @@
             <hr />
             <div class="mb-3">
                 <span>用户昵称</span>
-                <span class="mx-4">{{ user.username }}</span>
+                <span class="mx-4">{{ users.username }}</span>
             </div>
             <div class="mb-3">
                 <span>电子邮箱</span>
-                <span class="mx-4">{{ user.email }}</span>
+                <span class="mx-4">{{ users.email }}</span>
             </div>
             <div class="mb-3">
                 <span>加入日期</span>
-                <span class="mx-4">{{ user.date_joined | date:"Y-m-d" }}</span>
+                <span class="mx-4">{{ users.date_joined | date:"Y-m-d" }}</span>
             </div>
             <div>
                 <span>最后登录</span>
-                <span class="mx-4">{{ user.last_login | naturaltime }}</span>
+                <span class="mx-4">{{ users.last_login | naturaltime }}</span>
             </div>
         </div>
     </div>
