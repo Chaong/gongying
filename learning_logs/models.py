@@ -10,6 +10,7 @@ class Topic(models.Model):
     public = models.BooleanField(default=True)
     delete = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """ 返回模型的字符串表示 """
@@ -23,6 +24,7 @@ class Article(models.Model):
     content = models.TextField()
     delete = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """ 返回模型的字符串表示 """
@@ -36,9 +38,10 @@ class Dandelion(models.Model):
     """ 广场模块的短信息 """
     content = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    public = models.BooleanField(default=True)
+    anonymous = models.BooleanField(default=False)
     delete = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """ 返回模型的字符串表示 """

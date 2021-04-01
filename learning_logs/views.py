@@ -151,7 +151,7 @@ def edit_article(request, article_id):
 def squares(request):
     """ 广场主页 """
     form = DandelionForm()
-    dandelions = Dandelion.objects.order_by("-date_added")
+    dandelions = Dandelion.objects.filter(delete=False).order_by("-date_added")
     context = {"dandelions": dandelions, "form": form}
     return render(request, "learning_logs/squares.html", context)
 
@@ -167,6 +167,18 @@ def new_dandelion(request):
             new_dandelions.owner = request.user
             new_dandelions.save()
             return redirect("learning_logs:squares")
+
+
+@login_required
+def delete_dandelion(request, dandelion_id):
+    """ 删除蒲公英 """
+    dandelion = get_object_or_404(Dandelion, id=dandelion_id)
+    if dandelion.owner != request.user:
+        raise Http404
+    else:
+        dandelion.delete = True
+        dandelion.save()
+        return redirect("learning_logs:squares")
 
 
 def user(request, user_id):

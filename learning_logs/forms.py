@@ -21,6 +21,6 @@ class ArticleForm(forms.ModelForm):
 class DandelionForm(forms.ModelForm):
     class Meta:
         model = Dandelion
-        fields = ["content"]
-        labels = {"content": ""}
+        fields = ["content", "anonymous"]
+        labels = {"content": "", "anonymous": "匿名分享"}
         widgets = {"content": forms.Textarea(attrs={"rows": 3, "placeholder": "送你一支蒲公英，飘在那四季如春的天涯 ~"})}

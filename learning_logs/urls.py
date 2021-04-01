@@ -27,6 +27,8 @@ urlpatterns = [
     path("squares/", views.squares, name="squares"),
     # 添加蒲公英
     path("new_dandelion/", views.new_dandelion, name="new_dandelion"),
+    # 删除蒲公英
+    path("delete_dandelion/<int:dandelion_id>/", views.delete_dandelion, name="delete_dandelion"),
     # 用户主页
     path("user/<int:user_id>/", views.user, name="user"),
 ]
