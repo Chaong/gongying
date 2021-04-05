@@ -9,8 +9,8 @@
             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">制作蒲公英</a>
         </div>
     {% endif %}
-    <div class="collapse mt-3" id="collapseExample">
-        <form action="{% url 'learning_logs:new_dandelion' %}" method="post" class="form">
+    <div class="collapse" id="collapseExample">
+        <form action="{% url 'learning_logs:new_dandelion' %}" method="post" class="form mt-3">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
@@ -31,9 +31,11 @@
                     <div class="font-weight-bold">{{ dandelion.owner }}</div>
                 {% endif %}
                 <small class="text-muted">{{ dandelion.date_added | naturaltime }}</small>
-                <div class="my-3">{{ dandelion.content | linebreaksbr }}</div>
                 {% if user.is_authenticated and dandelion.owner == user %}
+                    <div class="my-2">{{ dandelion.content | linebreaksbr }}</div>
                     <a href="{% url 'learning_logs:delete_dandelion' dandelion.id %}" class="btn btn-outline-primary">删除</a>
+                {% else %}
+                    <div class="mt-2">{{ dandelion.content | linebreaksbr }}</div>
                 {% endif %}
             </div>
         </div>

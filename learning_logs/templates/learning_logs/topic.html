@@ -8,7 +8,7 @@
     {% if user.is_authenticated and topic.owner == user %}
         <div class="text-right">
             <a href="{% url 'learning_logs:edit_topic' topic.id %}" class="btn btn-outline-primary">编辑主题</a>
-            <a href="{% url 'learning_logs:new_article' topic.id %}" class="btn btn-primary">添加文章</a>
+            <a href="{% url 'learning_logs:new_article' topic.id %}" class="btn btn-primary">写篇文章</a>
         </div>
     {% endif %}
 {% endblock page_header %}
