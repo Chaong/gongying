@@ -20,20 +20,21 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <h2>公开主题</h2>
+    <h2>文章</h2>
 {% endblock page_header %}
 
 {% block content %}
-    {% for topic in topics %}
+    {% for article in articles %}
         <div class="card mb-3">
             <div class="card-body">
-                <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link text-body text-decoration-none">
-                    {{ topic }}<small class="text-muted ml-3">{{ topic.description }}</small>
-                </a>
-                <small class="float-right text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime }}</small>
+                 <h5 class="card-title">
+                     <a href="{% url 'learning_logs:article' article.id %}" class="stretched-link text-body text-decoration-none">{{ article.title }}</a>
+                 </h5>
+                <div class="text-muted mb-2">{{ article }}</div>
+                <small class="text-muted">{{ article.date_added | naturaltime }}</small>
             </div>
         </div>
     {% empty %}
-        <p>没有发现主题哦 ~</p>
+        <p>没有发现文章哦 ~</p>
     {% endfor %}
 {% endblock content %}

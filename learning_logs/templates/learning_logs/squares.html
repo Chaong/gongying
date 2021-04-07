@@ -26,14 +26,21 @@
         <div class="card mb-3">
             <div class="card-body">
                 {% if dandelion.anonymous %}
-                    <div class="font-weight-bold">匿名用户</div>
+                    <div>匿名用户</div>
                 {% else %}
-                    <div class="font-weight-bold">{{ dandelion.owner }}</div>
+                    <div>{{ dandelion.owner }}</div>
                 {% endif %}
                 <small class="text-muted">{{ dandelion.date_added | naturaltime }}</small>
                 {% if user.is_authenticated and dandelion.owner == user %}
                     <div class="my-2">{{ dandelion.content | linebreaksbr }}</div>
-                    <a href="{% url 'learning_logs:delete_dandelion' dandelion.id %}" class="btn btn-outline-primary">删除</a>
+
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-outline-primary btn-sm" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">编辑</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'learning_logs:delete_dandelion' dandelion.id %}">删除</a>
+                        </div>
+                    </div>
+
                 {% else %}
                     <div class="mt-2">{{ dandelion.content | linebreaksbr }}</div>
                 {% endif %}

@@ -17,13 +17,11 @@
     {% for article in articles %}
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">{{ article.title }}</h5>
+                 <h5 class="card-title">
+                     <a href="{% url 'learning_logs:article' article.id %}" class="stretched-link text-body text-decoration-none">{{ article.title }}</a>
+                 </h5>
+                <div class="text-muted mb-2">{{ article }}</div>
                 <small class="text-muted">{{ article.date_added | naturaltime }}</small>
-                <hr />
-                <p class="card-text">{{ article.content | linebreaksbr }}</p>
-                <div class="mt-3">
-                    <a href="{% url 'learning_logs:article' article.id %}" class="btn btn-outline-primary">查看详情</a>
-                </div>
             </div>
         </div>
     {% empty %}

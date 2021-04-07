@@ -15,8 +15,9 @@ def check_topic_owner(topic, request):
 
 def index(request):
     """ 学习笔记的主页 """
-    topics = Topic.objects.filter(public=True).order_by("-date_added")
-    context = {"topics": topics}
+    articles = Article.objects.filter(topic__public=True).order_by("-date_added")
+    print(articles)
+    context = {"articles": articles}
     return render(request, "learning_logs/index.html", context)
 
 
