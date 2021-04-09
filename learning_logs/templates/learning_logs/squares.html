@@ -25,25 +25,19 @@
     {% for dandelion in dandelions %}
         <div class="card mb-3">
             <div class="card-body">
-                {% if dandelion.anonymous %}
-                    <div>匿名用户</div>
-                {% else %}
-                    <div>{{ dandelion.owner }}</div>
-                {% endif %}
-                <small class="text-muted">{{ dandelion.date_added | naturaltime }}</small>
+                {{ dandelion.owner }}
                 {% if user.is_authenticated and dandelion.owner == user %}
-                    <div class="my-2">{{ dandelion.content | linebreaksbr }}</div>
-
-                    <div class="dropdown">
-                        <a href="#" class="btn btn-outline-primary btn-sm" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">编辑</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{% url 'learning_logs:delete_dandelion' dandelion.id %}">删除</a>
-                        </div>
+                    <div class="float-right" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                        </svg>
                     </div>
-
-                {% else %}
-                    <div class="mt-2">{{ dandelion.content | linebreaksbr }}</div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'learning_logs:delete_dandelion' dandelion.id %}">删除</a>
+                    </div>
                 {% endif %}
+                <div class="my-2">{{ dandelion.content | linebreaksbr }}</div>
+                <small class="text-muted">{{ dandelion.date_added | naturaltime }}</small>
             </div>
         </div>
     {% empty %}

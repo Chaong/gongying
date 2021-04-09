@@ -31,7 +31,7 @@
                      <a href="{% url 'learning_logs:article' article.id %}" class="stretched-link text-body text-decoration-none">{{ article.title }}</a>
                  </h5>
                 <div class="text-muted mb-2">{{ article }}</div>
-                <small class="text-muted">{{ article.date_added | naturaltime }}</small>
+                <small class="text-muted">{{ article.topic }} · {{ article.date_added | naturaltime }}</small>
             </div>
         </div>
     {% empty %}

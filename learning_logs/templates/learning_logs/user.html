@@ -12,24 +12,82 @@
 {% block content %}
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">基本信息</h5>
-            <hr />
-            <div class="mb-3">
-                <span>用户昵称</span>
-                <span class="mx-4">{{ users.username }}</span>
-            </div>
-            <div class="mb-3">
-                <span>电子邮箱</span>
-                <span class="mx-4">{{ users.email }}</span>
-            </div>
-            <div class="mb-3">
-                <span>加入日期</span>
-                <span class="mx-4">{{ users.date_joined | date:"Y-m-d" }}</span>
-            </div>
-            <div>
-                <span>最后登录</span>
-                <span class="mx-4">{{ users.last_login | naturaltime }}</span>
-            </div>
+            <h3>{{ users.username }}</h3>
+            <h5>{{ users.email }}</h5>
+            <p class="font-weight-light">于 {{ users.date_joined | date:"Y-m-d" }} 加入蒲公英</p>
+            <footer class="blockquote-footer float-right">
+                <cite title="{{ users.last_login }}">最后登录于 {{ users.last_login | naturaltime }}</cite>
+            </footer>
+        </div>
+    </div>
+    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="dynamic-tab" data-toggle="tab" href="#dynamic" role="tab" aria-controls="dynamic" aria-selected="true">动态</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="topic-tab" data-toggle="tab" href="#topic" role="tab" aria-controls="topic" aria-selected="false">主题</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="article-tab" data-toggle="tab" href="#article" role="tab" aria-controls="article" aria-selected="false">文章</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="dandelion-tab" data-toggle="tab" href="#dandelion" role="tab" aria-controls="dandelion" aria-selected="false">蒲公英</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
+            动态
+        </div>
+        <div class="tab-pane fade" id="topic" role="tabpanel" aria-labelledby="topic-tab">
+            {% for topic in topics %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link text-body text-decoration-none">
+                            {{ topic }}<small class="text-muted ml-3">{{ topic.description }}</small>
+                        </a>
+                        <small class="float-right text-muted">{{ topic.date_added | naturaltime }}</small>
+                    </div>
+                </div>
+            {% empty %}
+                <p>没有发现主题哦 ~</p>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade show active" id="article" role="tabpanel" aria-labelledby="article-tab">
+            {% for article in articles %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                         <h5 class="card-title">
+                             <a href="{% url 'learning_logs:article' article.id %}" class="stretched-link text-body text-decoration-none">{{ article.title }}</a>
+                         </h5>
+                        <div class="text-muted mb-2">{{ article }}</div>
+                        <small class="text-muted">{{ article.topic }} · {{ article.date_added | naturaltime }}</small>
+                    </div>
+                </div>
+            {% empty %}
+                <p>没有发现文章哦 ~</p>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="dandelion" role="tabpanel" aria-labelledby="dandelion-tab">
+            {% for dandelion in dandelions %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        {% if user.is_authenticated and dandelion.owner == user %}
+                            <div class="float-right" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                </svg>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'learning_logs:delete_dandelion' dandelion.id %}">删除</a>
+                            </div>
+                        {% endif %}
+                        <div class="mb-2">{{ dandelion.content | linebreaksbr }}</div>
+                        <small class="text-muted" title="{{ dandelion.date_added }}">{{ dandelion.date_added | naturaltime }}</small>
+                    </div>
+                </div>
+            {% empty %}
+                <p>没有发现蒲公英哦 ~</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

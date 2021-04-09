@@ -16,7 +16,6 @@ def check_topic_owner(topic, request):
 def index(request):
     """ 学习笔记的主页 """
     articles = Article.objects.filter(topic__public=True).order_by("-date_added")
-    print(articles)
     context = {"articles": articles}
     return render(request, "learning_logs/index.html", context)
 
@@ -185,5 +184,8 @@ def delete_dandelion(request, dandelion_id):
 def user(request, user_id):
     """ 用户主页 """
     users = get_object_or_404(User, id=user_id)
-    context = {"users": users}
+    topics = Topic.objects.filter(owner=user_id).order_by("-date_added")
+    articles = Article.objects.filter(topic__owner=user_id).order_by("-date_added")
+    dandelions = Dandelion.objects.filter(owner=user_id, delete=False).order_by("-date_added")
+    context = {"users": users, "topics": topics, "articles": articles, "dandelions": dandelions}
     return render(request, "learning_logs/user.html", context)
