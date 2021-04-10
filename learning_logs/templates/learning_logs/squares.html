@@ -25,7 +25,11 @@
     {% for dandelion in dandelions %}
         <div class="card mb-3">
             <div class="card-body">
-                {{ dandelion.owner }}
+                {% if dandelion.anonymous %}
+                    匿名用户
+                {% else %}
+                    {{ dandelion.owner }}
+                {% endif %}
                 {% if user.is_authenticated and dandelion.owner == user %}
                     <div class="float-right" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -37,7 +41,7 @@
                     </div>
                 {% endif %}
                 <div class="my-2">{{ dandelion.content | linebreaksbr }}</div>
-                <small class="text-muted">{{ dandelion.date_added | naturaltime }}</small>
+                <small class="text-muted" title="{{ dandelion.date_added }}">{{ dandelion.date_added | naturaltime }}</small>
             </div>
         </div>
     {% empty %}
