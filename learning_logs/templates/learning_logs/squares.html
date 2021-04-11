@@ -28,7 +28,7 @@
                 {% if dandelion.anonymous %}
                     匿名用户
                 {% else %}
-                    {{ dandelion.owner }}
+                    <a href="{% url 'learning_logs:user' dandelion.owner.id %}" class="text-reset">{{ dandelion.owner }}</a>
                 {% endif %}
                 {% if user.is_authenticated and dandelion.owner == user %}
                     <div class="float-right" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,6 +45,6 @@
             </div>
         </div>
     {% empty %}
-        <p>没有发现蒲公英哦 ~</p>
+        <div class="alert alert-warning text-center py-5 lead" role="alert">这里没有发现蒲公英 🧐</div>
     {% endfor %}
 {% endblock content %}

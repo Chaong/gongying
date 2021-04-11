@@ -14,13 +14,19 @@
     {% for topic in topics %}
         <div class="card mb-3">
             <div class="card-body">
-                <a href="{% url 'learning_logs:topic' topic.id %}" class="stretched-link text-body text-decoration-none">
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">
                     {{ topic }}<small class="text-muted ml-3">{{ topic.description }}</small>
                 </a>
-                <small class="float-right text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime }}</small>
+                <small class="float-right text-muted">
+                    <a href="{% url 'learning_logs:user' topic.owner.id %}" class="text-reset">{{ topic.owner }}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    </svg>
+                    <span title="{{ topic.date_added }}">{{ topic.date_added | naturaltime }}</span>
+                </small>
             </div>
         </div>
     {% empty %}
-        <p>没有发现主题哦 ~</p>
+        <div class="alert alert-warning text-center py-5 lead" role="alert">这里没有发现主题 🧐</div>
     {% endfor %}
 {% endblock content %}

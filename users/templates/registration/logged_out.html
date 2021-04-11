@@ -1,15 +1,15 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-    <h2>注销账号</h2>
+    <h2>退出登录</h2>
 {% endblock page_header %}
 
 {% block content %}
     <a href="{% url 'learning_logs:index' %}" class="text-decoration-none">
-        <div class="jumbotron">
+        <div class="alert alert-success py-5" role="alert">
             <div class="container">
-                <h1 class="display-4 text-body">注销成功</h1>
-                <p class="lead text-body">点击此处返回蒲公英主页</p>
+                <h1 class="display-4">成功</h1>
+                <p class="lead">点击此处返回蒲公英主页</p>
             </div>
         </div>
     </a>

@@ -12,9 +12,9 @@
             <li>分享文章到广场</li>
         </ol>
         {% if user.is_authenticated %}
-            <a class="btn btn-lg btn-primary" href="{% url 'learning_logs:topics' %}" role="button">进入主题 &raquo;</a>
+            <a class="btn btn-lg btn-primary px-5" href="{% url 'learning_logs:topics' %}" role="button">进入主题 &raquo;</a>
         {% else %}
-            <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">立刻注册 &raquo;</a>
+            <a class="btn btn-lg btn-primary px-5" href="{% url 'users:register' %}" role="button">立刻注册 &raquo;</a>
         {% endif %}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -27,14 +27,26 @@
     {% for article in articles %}
         <div class="card mb-3">
             <div class="card-body">
-                 <h5 class="card-title">
-                     <a href="{% url 'learning_logs:article' article.id %}" class="stretched-link text-body text-decoration-none">{{ article.title }}</a>
-                 </h5>
-                <div class="text-muted mb-2">{{ article }}</div>
-                <small class="text-muted">{{ article.topic }} · {{ article.date_added | naturaltime }}</small>
+                <h5 class="card-title">
+                    <a href="{% url 'learning_logs:article' article.id %}" class="text-reset">{{ article.title }}</a>
+                </h5>
+                <div class="text-muted mb-2">
+                    <a href="{% url 'learning_logs:article' article.id %}" class="text-reset">{{ article }}</a>
+                </div>
+                <small class="text-muted">
+                    <a href="{% url 'learning_logs:topic' article.topic.id %}" class="text-reset">{{ article.topic }}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    </svg>
+                    <a href="{% url 'learning_logs:user' article.topic.owner.id %}" class="text-reset">{{ article.topic.owner }}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    </svg>
+                    <span title="{{ article.date_added }}">{{ article.date_added | naturaltime }}</span>
+                </small>
             </div>
         </div>
     {% empty %}
-        <p>没有发现文章哦 ~</p>
+        <div class="alert alert-warning text-center py-5 lead" role="alert">这里没有发现文章 🧐</div>
     {% endfor %}
 {% endblock content %}

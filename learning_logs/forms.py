@@ -23,4 +23,4 @@ class DandelionForm(forms.ModelForm):
         model = Dandelion
         fields = ["content", "anonymous"]
         labels = {"content": "", "anonymous": "匿名分享"}
-        widgets = {"content": forms.Textarea(attrs={"rows": 3, "placeholder": "在这偌大的世界分享你的小世界 ~"})}
+        widgets = {"content": forms.Textarea(attrs={"rows": 3, "placeholder": "在这偌大的世界分享你的小世界 (‾◡◝)"})}

@@ -3,8 +3,14 @@
 
 {% block page_header %}
     <h2>{{ article.title }}</h2>
-    <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></div>
-    <small class="text-muted">{{ topic.owner }} · {{ topic.date_added | naturaltime  }}</small>
+    <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">{{ topic }}</a></div>
+    <small class="text-muted">
+        <a href="{% url 'learning_logs:user' topic.owner.id %}" class="text-reset">{{ topic.owner }}</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+        </svg>
+        <span title="{{ article.date_added }}">{{ article.date_added | naturaltime  }}</span>
+    </small>
     {% if user.is_authenticated and topic.owner == user %}
         <div class="text-right">
             <a href="{% url 'learning_logs:edit_article' article.id %}" class="btn btn-outline-primary">编辑文章</a>
