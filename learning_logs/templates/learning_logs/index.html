@@ -3,24 +3,19 @@
 
 {% block page_header %}
     <div class="alert alert-primary alert-dismissible fade show px-4 py-5" role="alert">
-        <h1 class="display-4">记录学习，分享成长</h1>
+        <h1 class="display-4">记录一些，分享一些。</h1>
         <hr class="my-4">
-        <p class="lead">哈喽，欢迎来到蒲公英。在这里可以轻松创建自己的学习记录，还可以在广场中与人分享，让更多的人知道并与您一起成长。以下是我们为您推荐的使用步骤：</p>
-        <ol class="lead">
-            <li>创建主题</li>
-            <li>在主题下写篇文章</li>
-            <li>分享文章到广场</li>
-        </ol>
+        <p class="lead">哈喽，欢迎来到蒲公英。这是一个内容创作与分享的平台，你可以在这里写篇文章，还可以在广场中分享一些你的想法。全世界的人都可以看到你，让蒲公英飘到世界上每一个角落。</p>
         {% if user.is_authenticated %}
             <a class="btn btn-lg btn-primary px-5" href="{% url 'learning_logs:topics' %}" role="button">进入主题 &raquo;</a>
         {% else %}
-            <a class="btn btn-lg btn-primary px-5" href="{% url 'users:register' %}" role="button">立刻注册 &raquo;</a>
+            <a class="btn btn-lg btn-primary px-5" href="{% url 'users:register' %}" role="button">马上注册 &raquo;</a>
         {% endif %}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <h2>文章</h2>
+    <h2>📄 文章</h2>
 {% endblock page_header %}
 
 {% block content %}

@@ -5,9 +5,9 @@
     {% if type == "new" %}
         <h2>写篇文章</h2>
     {% else %}
-        <h2>编辑文章</h2>
+        <h2>修改文章</h2>
     {% endif %}
-    <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></div>
+    <div class="lead">所属主题：<a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">{{ topic }}</a></div>
 {% endblock page_header %}
 
 {% block content %}
@@ -21,10 +21,10 @@
         {% buttons %}
             {% if type == "new" %}
                 <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
-                <button name="submit" class="btn btn-primary">发布文章</button>
+                <button name="submit" class="btn btn-primary px-4">发布文章</button>
             {% else %}
                 <a href="{% url 'learning_logs:article' article.id %}" class="btn btn-outline-primary">取消</a>
-                <button name="submit" class="btn btn-primary">保存编辑</button>
+                <button name="submit" class="btn btn-primary px-4">保存修改</button>
             {% endif %}
         {% endbuttons %}
     </form>

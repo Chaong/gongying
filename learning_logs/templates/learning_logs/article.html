@@ -13,7 +13,7 @@
     </small>
     {% if user.is_authenticated and topic.owner == user %}
         <div class="text-right">
-            <a href="{% url 'learning_logs:edit_article' article.id %}" class="btn btn-outline-primary">编辑文章</a>
+            <a href="{% url 'learning_logs:edit_article' article.id %}" class="btn btn-outline-primary px-4">修改文章</a>
         </div>
     {% endif %}
 {% endblock page_header %}

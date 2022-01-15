@@ -3,10 +3,10 @@
 {% load humanize %}
 
 {% block page_header %}
-    <h2>广场</h2>
+    <h2>🪐 广场</h2>
     {% if user.is_authenticated %}
         <div class="text-right">
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">制作蒲公英</a>
+            <a class="btn btn-primary px-4" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">分享蒲公英</a>
         </div>
     {% endif %}
     <div class="collapse" id="collapseExample">
@@ -15,7 +15,7 @@
             {% bootstrap_form form %}
             {% buttons %}
                 <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">取消</a>
-                <button name="submit" class="btn btn-primary">分享蒲公英</button>
+                <button name="submit" class="btn btn-primary px-5">分享</button>
             {% endbuttons %}
         </form>
     </div>

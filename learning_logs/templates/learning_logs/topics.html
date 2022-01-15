@@ -2,10 +2,10 @@
 {% load humanize %}
 
 {% block page_header %}
-    <h2>主题</h2>
+    <h2>📘 主题</h2>
     {% if user.is_authenticated %}
         <div class="text-right">
-            <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">创建主题</a>
+            <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary px-4">新建主题</a>
         </div>
     {% endif %}
 {% endblock page_header %}
@@ -14,9 +14,10 @@
     {% for topic in topics %}
         <div class="card mb-3">
             <div class="card-body">
-                <a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">
-                    {{ topic }}<small class="text-muted ml-3">{{ topic.description }}</small>
-                </a>
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">{{ topic }}</a>
+                <small class="text-muted ml-3">
+                    <a href="{% url 'learning_logs:topic' topic.id %}" class="text-reset">{{ topic.description }}</a>
+                </small>
                 <small class="float-right text-muted">
                     <a href="{% url 'learning_logs:user' topic.owner.id %}" class="text-reset">{{ topic.owner }}</a>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">

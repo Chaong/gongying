@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>蒲公英 - 记录学习，分享成长</title>
+    <title>蒲公英 - 记录与分享</title>
     {% bootstrap_css %}
     {% bootstrap_javascript jquery="full" %}
 </head>
@@ -30,7 +30,7 @@
                         <div class="dropdown">
                             <a class="dropdown-toggle text-muted text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{% url 'learning_logs:user' user.id %}">我的主页</a>
+                                <a class="dropdown-item" href="{% url 'learning_logs:user' user.id %}">我的</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'users:logout' %}">退出</a>
                             </div>

@@ -2,23 +2,18 @@
 {% load humanize %}
 
 {% block page_header %}
-    {% if user.is_authenticated and users == user %}
-    <h2>我的主页</h2>
-    {% else %}
-    <h2>用户主页</h2>
-    {% endif %}
+    <div class="mb-3">
+        <h2>{{ users.username }}</h2>
+        {% if users.email %}
+            <p class="lead">📮 {{ users.email }}</p>
+        {% endif %}
+        <footer class="blockquote-footer text-right">
+            <cite>{{ users.date_joined | date:"Y-m-d" }} 加入</cite>
+        </footer>
+    </div>
 {% endblock page_header %}
 
 {% block content %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <h3>{{ users.username }}</h3>
-            <h5>{{ users.email }}</h5>
-            <footer class="blockquote-footer float-right">
-                <cite>{{ users.date_joined | date:"Y-m-d" }} 加入</cite>
-            </footer>
-        </div>
-    </div>
     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="dynamic-tab" data-toggle="tab" href="#dynamic" role="tab" aria-controls="dynamic" aria-selected="true">动态</a>

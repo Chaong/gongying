@@ -3,9 +3,9 @@
 
 {% block page_header %}
     {% if type == "new" %}
-        <h2>创建主题</h2>
+        <h2>新建主题</h2>
     {% else %}
-        <h2>编辑主题</h2>
+        <h2>修改主题</h2>
     {% endif %}
 {% endblock page_header %}
 
@@ -20,10 +20,10 @@
         {% buttons %}
             {% if type == "new" %}
                 <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-primary">取消</a>
-                <button name="submit" class="btn btn-primary">发布主题</button>
+                <button name="submit" class="btn btn-primary px-4">发布主题</button>
             {% else %}
                 <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary">取消</a>
-                <button name="submit" class="btn btn-primary">保存编辑</button>
+                <button name="submit" class="btn btn-primary px-4">保存修改</button>
             {% endif %}
         {% endbuttons %}
     </form>
