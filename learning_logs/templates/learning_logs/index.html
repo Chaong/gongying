@@ -5,7 +5,14 @@
     <div class="alert alert-primary alert-dismissible fade show px-4 py-5" role="alert">
         <h1 class="display-4">记录一些，分享一些。</h1>
         <hr class="my-4">
-        <p class="lead">哈喽，欢迎来到蒲公英。这是一个内容创作与分享的平台，你可以在这里写篇文章，还可以在广场中分享一些你的想法。全世界的人都可以看到你，让蒲公英飘到世界上每一个角落。</p>
+        <p class="lead">🎉 新年快乐，欢迎来到蒲公英。这是一个内容创作与分享的平台，你可以在这里撰写文章，还可以在广场中分享一些你的想法。全世界的人都可以看到你，让蒲公英飘到世界上每一个角落。</p>
+        <div class="text-right mb-3">
+            <cite>
+                <a href="/user/1/" class="text-reset">Chaong</a>
+            </cite>
+            <br/>
+            <cite>2022年1月16日</cite>
+        </div>
         {% if user.is_authenticated %}
             <a class="btn btn-lg btn-primary px-5" href="{% url 'learning_logs:topics' %}" role="button">进入主题 &raquo;</a>
         {% else %}
